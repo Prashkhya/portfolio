@@ -3,434 +3,1080 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prashasti Rakhya</title>
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <title>Prashasti Rakhya | Data Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Styles */
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --background-color: #f4f7f9;
+            --text-color: #34495e;
+            --card-bg: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --light-gray: #ecf0f1;
+        }
 
-    <link rel="stylesheet" href="style.css">
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px var(--shadow-color);
+            transition: background 0.3s ease, padding 0.3s ease;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: var(--text-color);
+            padding: 0.75rem 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 5px;
+            left: 1.2rem;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu li a:hover::after {
+            width: calc(100% - 2.4rem);
+        }
+
+        .nav-menu li a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: var(--text-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center center/cover no-repeat;
+            min-height: 100vh;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 5rem; /* Offset for fixed navbar */
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .hero-content h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: #fff;
+            padding: 0.9rem 2.2rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: transparent;
+            color: var(--primary-color);
+        }
+
+        /* General Section Styling */
+        section {
+            padding: 6rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            color: var(--secondary-color);
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        /* Redesigned About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        .about-image {
+            position: relative;
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            border: 8px solid var(--card-bg);
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .highlight-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border-bottom: 4px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+        .highlight-card .icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        .highlight-card h4 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+        .highlight-card p {
+            font-size: 0.9rem;
+        }
+        
+        /* Data Philosophy Section Styles */
+        .about-philosophy {
+            background: var(--secondary-color);
+            color: #fff;
+            padding: 3rem;
+            border-radius: 10px;
+            margin-top: 5rem;
+            text-align: center;
+        }
+        .about-philosophy h4 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .about-philosophy p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        .about-philosophy code {
+            background: rgba(255,255,255,0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        /* Redesigned Experience Timeline */
+        .experience {
+            background: var(--light-gray);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item::after {
+            content: attr(data-year);
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            line-height: 62px;
+            right: -35px;
+            background-color: var(--background-color);
+            border: 4px solid var(--primary-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -35px;
+        }
+
+        .timeline-content {
+            padding: 2rem;
+            background-color: var(--card-bg);
+            position: relative;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            transition: transform 0.3s ease;
+        }
+        .timeline-content:hover {
+            transform: translateY(-5px);
+        }
+        
+        .timeline-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+            font-size: 1.4rem;
+        }
+
+        .timeline-content .company {
+            font-weight: 600;
+            font-style: italic;
+            margin-bottom: 0.25rem;
+        }
+
+        .timeline-content .date {
+            font-size: 0.9rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .timeline-content ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-content ul li::before {
+            content: '\f00c'; /* Font Awesome check icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--primary-color);
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+
+        /* Redesigned Projects Section */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: 0 5px 25px var(--shadow-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .project-image {
+            height: 220px;
+            overflow: hidden;
+        }
+        
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+        
+        .project-content {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-content h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 1.3rem;
+        }
+        
+        .project-content p {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags {
+            margin-bottom: 1.5rem;
+        }
+        
+        .project-tags .tag {
+            display: inline-block;
+            background: var(--light-gray);
+            color: var(--text-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .btn-secondary:hover {
+            color: var(--secondary-color);
+        }
+        
+        .btn-secondary.disabled {
+            color: #999;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Redesigned Skills Section */
+        .skills {
+            background: var(--light-gray);
+        }
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .skill-category-card {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px var(--shadow-color);
+        }
+
+        .skill-category-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-category-card-header .icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+        
+        .skill-category-card-header h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li .fa-check-circle {
+            color: var(--primary-color);
+            margin-right: 0.75rem;
+        }
+        
+        /* New Tech Stack Section */
+        .tech-stack {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        .tech-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tech-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+        }
+        .tech-card .icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        .tech-card h4 {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        .tech-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Redesigned Footer */
+        .footer {
+            background: var(--secondary-color);
+            color: #fff;
+            text-align: center;
+            padding: 5rem 0 2rem;
+        }
+
+        .footer .container {
+            max-width: 800px;
+        }
+
+        .footer h2.section-title {
+            color: #fff;
+        }
+
+        .footer p {
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .social-links a {
+            color: #fff;
+            font-size: 2rem;
+            margin: 0 1rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+            display: inline-block;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .footer .btn {
+            margin-top: 2.5rem;
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .footer .btn:hover {
+            background: #fff;
+            color: var(--secondary-color);
+            border-color: #fff;
+        }
+        
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media(max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image {
+                margin-top: 2rem;
+                justify-self: center;
+            }
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 0;
+                flex-direction: column;
+                justify-content: center;
+                background-color: var(--card-bg);
+                width: 100%;
+                height: 100vh;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px var(--shadow-color);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                margin: 2.5rem 0;
+            }
+            
+            .nav-menu li a {
+                font-size: 1.5rem;
+            }
+
+            .hamburger {
+                display: block;
+                z-index: 1001; /* Above nav menu */
+            }
+            
+            .hamburger .bar {
+                 background-color: var(--text-color);
+            }
+            
+            .hamburger.active .bar {
+                background-color: var(--text-color);
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0%;
+            }
+
+            .timeline-item::after {
+                left: -3px;
+                width: 70px;
+                height: 70px;
+                line-height: 62px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="nav-toggle" id="nav-toggle">
-        <i class="uil uil-bars"></i>
-    </div>
-
-    <aside class="sidebar" id="sidebar">
-        <nav class="nav">
-            <div class="nav-logo">
-                <a href="#" class="nav-logo-text">P</a>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="nav-logo">PR</a>
+            <ul class="nav-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
-
-            <div class="nav-menu">
-                <div class="menu">
-                    <ul class="nav-list">
-                        <li class="nav-item">
-                            <a href="#home" class="nav-link active-link">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#about" class="nav-link">About</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#skills" class="nav-link">Skills</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#work" class="nav-link">Work</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#services" class="nav-link">Services</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="#contact" class="nav-link">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="btn-share">
-                <i class="uil uil-share-alt social-share"></i>
-            </div>
-
-            <div class="nav-close" id="nav-close">
-                <i class="uil uil-times"></i>
-            </div>
-        </nav>
-    </aside>
-
-    <main class="main">
-        <section class="home" id="home">
-            <div class="home-container container grid">
-                <div class="home-social">
-          <span class="home-social-follow">Connect</span>
-          <div class="home-social-links">
-            <a href="https://linkedin.com/in/prashastirakhya" target="_blank" class="home-social-link"><i class="uil uil-linkedin"></i></a>
-            <a href="mailto:rakhyaprashasti@gmail.com" class="home-social-link"><i class="uil uil-envelope"></i></a>
-            <a href="https://github.com/prashastirakhya" target="_blank" class="home-social-link"><i class="uil uil-github"></i></a>
-          </div>
         </div>
+    </nav>
 
-                <img src="https://res.cloudinary.com/dlgofies9/image/upload/v1753729327/for_linked.._zt8p48.jpg" alt="" class="home-img">
-
-            <div class="home-data">
-                <h1 class="home-title">Hi, I'm Prashasti</h1>
-                <h3 class="home-subtitle">Data Professional – Analytics, Engineering Insights</h3>
-                <p class="home-description">I design data systems that scale, deliver insights, and drive decisions—powered by machine learning, curiosity, and snacks!</p>
-                <a href="#about" class="button">
-                    <i class="uil uil-user button-icon"></i>
-                    More About me!
-                </a>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Prashasti Rakhya</h1>
+                <h2>Data Analyst, Engineer & Insights Professional</h2>
+                <p>I transform raw data into business-ready insights, helping teams make faster, smarter decisions.</p>
+                <a href="#projects" class="btn">View My Work</a>
             </div>
-
-           
         </div>
+    </header>
 
-            
-        </section>
-
-        <section class="about section" id="about">
-            <h2 class="section-title" data-heading="My Intro">About me</h2>
-
-            <div class="about-container container grid">
-                <img src="https://res.cloudinary.com/dlgofies9/image/upload/v1753729327/for_linked.._zt8p48.jpg" alt="" class="about-img">
-
-                <div class="about-data">
-                    <h3 class="about-heading">I'm based in London, UK (open to relocate)</h3>
-                    <p class="about-description">Hi, I’m Prashasti — a data professional who turns complexity into clarity. With a background spanning data engineering, analytics, and applied machine learning, I build pipelines, dashboards, and models that don’t just run — they drive decisions, spark conversations, and make teams faster and smarter. I move comfortably between technical deep-dives and stakeholder discussions — writing SQL one hour, then translating trends into strategic actions the next. I believe good data work is more than code or charts; it’s about making information understandable, trustworthy, and genuinely useful. Whether I’m aligning with teams, fine-tuning a schema, or telling a story through data, I bring structure, curiosity, and a calm, clear voice to the room. When I’m not writing queries, I’m redesigning dashboards no one asked me to fix, testing color palettes for fun, or daydreaming about a universe with perfectly clean schemas.</p>
-
-                    <div class="about-info">
-                        <div class="about-box">
-                            <i class="uil uil-award about-icon"></i>
-                            <h3 class="about-title">Experience</h3>
-                            <span class="about-subtitle">4 + Years</span>
-                        </div>
-
-                        <div class="about-box">
-                            <i class="uil uil-suitcase-alt about-icon"></i>
-                            <h3 class="about-title">Completed</h3>
-                            <span class="about-subtitle">10 + Projects</span>
-                        </div>
-
-                        <div class="about-box">
-                            <i class="uil uil-headphones-alt about-icon"></i>
-                            <h3 class="about-title">Support</h3>
-                            <span class="about-subtitle">Remote | Hybrid | On-site Ready</span>
-                        </div>
+    <main>
+        <!-- Redesigned About Me Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Turning Data into Decisions</h3>
+                        <p>I'm a data professional with over 4 years of experience in analytics and engineering. My passion lies in turning complex data into clear, actionable insights that drive business growth. From automating ETL pipelines to crafting intuitive dashboards, I build reliable and scalable data solutions.</p>
+                        <p>My technical foundation is in Python, SQL, and various ML and AI tools. I recently completed an MSc in Computer Science with a focus on Data Analytics from the University of Leeds, where I honed my skills in machine learning and end-to-end automation. I thrive on translating ambiguity into structure and believe that data should ultimately work for people.</p>
                     </div>
-
-                    <a href="#contact" class="button"><i class="uil uil-navigator button-icon"></i>Contact me</a>
+                    <div class="about-image">
+                        <img src="https://placehold.co/600x700/2c3e50/ffffff?text=Prashasti" alt="Prashasti Rakhya">
+                    </div>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="icon"><i class="fas fa-chart-line"></i></div>
+                        <h4>+70%</h4>
+                        <p>Reporting Speed</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <h4>-25%</h4>
+                        <p>Cloud Cost Savings</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="icon"><i class="fas fa-cogs"></i></div>
+                        <h4>4+ Years</h4>
+                        <p>Experience</p>
+                    </div>
+                </div>
+                <!-- Data Philosophy Section EDITED -->
+                <div class="about-philosophy">
+                    <h4>My Not-So-Secret Formula</h4>
+                    <p><code>(Business Acumen + Technical Rigor) * A Healthy Dose of Curiosity</code>. I believe data's true power is unlocked when it speaks a language everyone understands. My goal is to be the translator—turning complex datasets into clear, compelling stories that drive decisions. It's about building bridges, not just dashboards.</p>
                 </div>
             </div>
         </section>
 
-        <section class="qualification section">
-            <h2 class="section-title" data-heading="My Journey">Qualifications</h2>
-
-            <div class="qualification-container container grid">
-                <div class="education">
-                    <h3 class="qualification-title"><i class="uil uil-graduation-cap"></i>Education</h3>
-
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">University of Leeds, UK</h3>
-                            <p class="timeline-text">MSc, Adv Computer Science - Data Analytics
-
-</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2023 - 2024</span>
+        <!-- Redesigned Experience Section -->
+        <section id="experience" class="experience">
+            <div class="container">
+                <h2 class="section-title">Professional Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item" data-year="2024">
+                        <div class="timeline-content">
+                            <h3>Data Analyst</h3>
+                            <p class="company">Just Access | London, UK</p>
+                            <p class="date">Sep 2024 – Present</p>
+                            <ul>
+                                <li>Built a centralized analytics platform (BigQuery, Looker), cutting reporting time by 70%.</li>
+                                <li>Integrated Grafana/Prometheus for real-time monitoring, slashing incident resolution time by over 60%.</li>
+                                <li>Delivered self-serve dashboards, causing a 40% drop in ad-hoc data requests.</li>
+                            </ul>
                         </div>
-
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">RGPV, India</h3>
-                            <p class="timeline-text">B.E., Computer Science</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>2015 - 2019</span>
-                        </div>
-
-                        
                     </div>
-                </div>
-
-                <div class="experience">
-                    <h3 class="qualification-title"><i class="uil uil-suitcase"></i>Experience</h3>
-
-                    <div class="timeline">
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Just Access, UK</h3>
-                            <p class="timeline-text">Data Analyst</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>Sep 2024 - Present</span>
+                     <div class="timeline-item" data-year="2023">
+                        <div class="timeline-content">
+                            <h3>Business Operations & Support Analyst</h3>
+                            <p class="company">Beyond Key | India</p>
+                            <p class="date">Feb 2023 – Aug 2023</p>
+                            <ul>
+                                <li>Cut fund allocation errors by 30% by optimizing validation workflows.</li>
+                                <li>Developed Tableau reports to visualize issue categories, improving prioritization.</li>
+                                <li>Improved SLA compliance by monitoring support tickets with Jira.</li>
+                            </ul>
                         </div>
-
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Beyond Key, India</h3>
-                            <p class="timeline-text">Business Operations Analyst</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>Feb 2023 – Aug 2023</span>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">E2E Networks, India</h3>
-                            <p class="timeline-text">Cloud Support Engineer</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>Apr 2022 – Sep 2022</span>
-                        </div>
-
-                        <div class="timeline-item">
-                            <div class="circle-dot"></div>
-                            <h3 class="timeline-title">Amazon, India</h3>
-                            <p class="timeline-text">Customer Experience Analyst</p>
-                            <span class="timeline-date"><i class="uil uil-calendar-alt"></i>Sep 2019 – Dec 2021</span>
-                        </div>
-
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="skills section" id="skills">
-            <h2 class="section-title" data-heading="My Abilities">Skills</h2>
-
-            <div class="skills-container container grid">
-                <div class="skills-tabs">
-                    <div class="skills-header skills-active" data-target="#frontend">
-                        <i class="uil uil-brackets-curly skills-icon"></i>
-
-                        <div>
-                            <h1 class="skills-title">Languages</h1>
-                            <span class="skills-subtitle">Python, SQL, R, Tableau, Looker</span>
-                            
+                    <div class="timeline-item" data-year="2022">
+                        <div class="timeline-content">
+                            <h3>Cloud Support Engineer</h3>
+                            <p class="company">E2E Networks | India</p>
+                            <p class="date">Apr 2022 – Sep 2022</p>
+                            <ul>
+                                <li>Helped clients cut cloud costs by up to 25% through infrastructure analysis.</li>
+                                <li>Optimized ETL pipelines using Python, SQL, BigQuery, and Redshift.</li>
+                                <li>Created CI/CD workflows (GitLab, Docker), maintaining 86.9% pipeline uptime.</li>
+                            </ul>
                         </div>
-
                     </div>
-
-                    <div class="skills-header" data-target="#design">
-                        <i class="uil uil-swatchbook skills-icon"></i>
-
-                        <div>
-                            <h1 class="skills-title">Data Engineering</h1>
-                            <span class="skills-subtitle">ETL/ELT, Data Warehousing, BigQuery, Redshift, Snowflake</span>
-                            
-                        </div>
-
-                    </div>
-
-                    <div class="skills-header" data-target="#backend">
-                        <i class="uil uil-server-network skills-icon"></i>
-
-                        <div>
-                            <h1 class="skills-title">ML & AI</h1>
-                            <span class="skills-subtitle">Scikit-learn, Regression Models, Classification, LLM Integration, Semantic Search (Pinecone)</span>
-                        </div>
-
-                    </div>
-                </div>
-
-                <div class="skills-content">
-                    <div class="skills-header" data-target="#backend">
-                        <i class="uil uil-brackets-curly skills-icon"></i>
-
-                        <div>
-                            <h1 class="skills-title">Workflow & DevOps</h1>
-                            <span class="skills-subtitle">Airflow, Docker, Kubernetes, Git, CI/CD (GitLab, Jenkins)</span>
-                        </div>
-
-                    </div>
-                    <div class="skills-header" data-target="#backend">
-                        <i class="uil uil-swatchbook skills-icon"></i>
-
-                        <div>
-                            <h1 class="skills-title">Monitoring & Ops</h1>
-                            <span class="skills-subtitle">Grafana, Prometheus , Agile/Scrum, Data Governance, MDM, Stakeholder Communication</span>
-                        </div>
-
-                    </div>
-                    <div class="skills-header" data-target="#backend">
-                        <i class="uil uil-server-network skills-icon"></i>
-
-                        <div>
-                            <h1 class="skills-title">Analytics & Visualization</h1>
-                            <span class="skills-subtitle">Pandas, Seaborn, Tableau Dashboards</span>
-                        </div>
-
-                    </div>
-                </div>
-
-                
-
-            </div>
-        </section>
-
-            <section class="work section" id="projects">
-      <h2 class="section-title" data-heading="Portfolio">Projects</h2>
-      <div class="work-container container grid">
-        <div class="work-card">
-          <img src="https://i.postimg.cc/TYVyPhrF/work-5.png" alt="Project 1" class="work-img">
-          <h3>HF Radio Signal Prediction</h3>
-          <p>Developed a machine learning model predicting HF radio signal reliability with 87% accuracy — MSc dissertation focused on real-time communication systems.
-
-</p>
-       </div>
-        <div class="work-card">
-          <img src="https://i.postimg.cc/43Th5VXJ/work-1.png" alt="Project 2" class="work-img">
-          <h3>Context-Aware Compliance Copilot</h3>
-          <p>Designing and building an internal compliance copilot that lever-
-ages automation and AI to support cross-functional teams in managing risk, policies, and regulatory updates.</p>
-      
-        </div>
-        <div class="work-card">
-          <img src="https://i.postimg.cc/43Th5VXJ/work-1.png" alt="Project 2" class="work-img">
-          <h3>TikTok Creator Analytics</h3>
-          <p>Built machine learning models to attribute creator and ad performance, and developed targeting strategies that drove a 50% lift in DTC sales.</p>
-        </div>
-        <div class="work-card">
-          <img src="https://i.postimg.cc/TYVyPhrF/work-5.png" alt="Project 3" class="work-img">
-          <h3>Dashboard Portfolio</h3>
-          <p>Developed Tableau dashboards for sales trends, KPIs, retention cohorts, and insights.</p>
-        </div>
-      </div>
-    </section>
-
-        <div class="portfolio-popup">
-            <div class="portfolio-popup-inner">
-                <div class="portfolio-popup-content grid">
-                    <span class="portfolio-popup-close"><i class="uil uil-times"></i></span>
-                    <div class="pp-thumbnail">
-                        <img src="https://i.postimg.cc/sXLjnC5p/work-2.png" alt="" class="portfolio-popup-img">
-                    </div>
-
-                    <div class="portfolio-popup-info">
-                        <div class="portfolio-popup-subtitle">Featured - <span>Design</span></div>
-                        <div class="portfolio-popup-body">
-                            <h3 class="details-title">App for Technology & Services</h3>
-                            <p class="details-description">A stylish burger restaurant mobile app interface displayed on two smartphones</p>
-
-                            <ul class="details-info">
-                                <li>Created - <span>15 Apr 2025</span></li>
-                                <li>Technologies - <span>html css</span></li>
-                                <li>Role - <span>frontend</span></li>
-                                <li>View - <span><a href="#">www.domain.com</a></span></li>
+                    <div class="timeline-item" data-year="2019-21">
+                        <div class="timeline-content">
+                            <h3>Customer Experience Analyst</h3>
+                            <p class="company">Amazon | India</p>
+                            <p class="date">Sep 2019 – Dec 2021</p>
+                            <ul>
+                                <li>Reduced refund resolution time by 17% by improving CRM tagging logic.</li>
+                                <li>Cut delivery-related complaints by 12% through ticket data analysis.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <section class="services section" id="services">
-            <h2 class="section-title" data-heading="Services">What I Offer</h2>
-
-            <div class="services-container container grid">
-                <div class="services-content"><i class="uil uil-database services-icon"></i><h3>Data Engineering</h3><p>ETL pipelines, automation, cloud data stacks</p></div>
-        <div class="services-content"><i class="uil uil-chart services-icon"></i><h3>Analytics & BI</h3><p>Dashboards, KPIs, storytelling with data</p></div>
-        <div class="services-content"><i class="uil uil-brain services-icon"></i><h3>Machine Learning</h3><p>Predictive modeling, classification, NLP</p></div>
+        <!-- Redesigned Projects Section -->
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="project-grid">
+                    <div class="project-card">
+                        <div class="project-image">
+                           <img src="https://placehold.co/600x400/3498db/ffffff?text=HF+Radio+ML" alt="HF Radio Project">
+                        </div>
+                        <div class="project-content">
+                            <h3>Data Analytics & ML for HF Radio Communications</h3>
+                            <p>Designed and built pipelines using Scikit-learn to model HF signal reliability. Achieved 87% accuracy, improving reliability assessment across radio tower networks.</p>
+                            <div class="project-tags">
+                                <span class="tag">Scikit-learn</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">ML</span>
+                            </div>
+                            <a href="#" class="btn-secondary">View on Portfolio <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                         <div class="project-image">
+                           <img src="https://placehold.co/600x400/2ecc71/ffffff?text=TikTok+Strategy" alt="TikTok Project">
+                        </div>
+                        <div class="project-content">
+                            <h3>TikTok Shop Growth Strategy</h3>
+                            <p>Built regression models to correlate CTR, AOV, and refund rates with revenue. Advised on Spark Ads and creator partnerships to drive DTC growth.</p>
+                             <div class="project-tags">
+                                <span class="tag">Regression</span>
+                                <span class="tag">Ad Analytics</span>
+                                <span class="tag">Python</span>
+                            </div>
+                            <a href="#" class="btn-secondary">View on Portfolio <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-card">
+                         <div class="project-image">
+                           <img src="https://placehold.co/600x400/e74c3c/ffffff?text=Tableau+Dashboards" alt="Tableau Project">
+                        </div>
+                        <div class="project-content">
+                            <h3>Tableau Dashboard Portfolio</h3>
+                            <p>Built a collection of interactive dashboards using Python for data processing and Tableau for visualization, covering sales, retention, and operational KPIs.</p>
+                             <div class="project-tags">
+                                <span class="tag">Tableau</span>
+                                <span class="tag">Data Viz</span>
+                                <span class="tag">Python</span>
+                            </div>
+                            <a href="#" class="btn-secondary">View on Portfolio <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                     <div class="project-card">
+                         <div class="project-image">
+                           <img src="https://placehold.co/600x400/f39c12/ffffff?text=Compliance+AI" alt="Compliance AI Project">
+                        </div>
+                        <div class="project-content">
+                            <h3>Context-Aware Compliance Copilot</h3>
+                            <p>Currently designing and building an internal compliance copilot that leverages automation and AI to support teams in managing risk and regulatory updates.</p>
+                             <div class="project-tags">
+                                <span class="tag">AI/LLM</span>
+                                <span class="tag">Automation</span>
+                                <span class="tag">RAG</span>
+                            </div>
+                            <a href="#" class="btn-secondary disabled">In Progress</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section class="contact section" id="contact">
-            <h2 class="section-title" data-heading="Get in Touch">Contact me</h2>
-
-            <div class="contact-container container grid">
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <i class="uil uil-envelope-edit contact-card-icon"></i>
-                            <h3 class="contact-card-title">Email</h3>
-                            <span class="contact-card-data">rakhyaprashasti@gmail.com</span>
-                            <span class="contact-button">Write me <i class="uil uil-arrow-right contact-button-icon"></i></span>
+        <!-- Redesigned Skills Section -->
+        <section id="skills" class="skills">
+            <div class="container">
+                <h2 class="section-title">Core Competencies</h2>
+                <div class="skills-container">
+                    <div class="skill-category-card">
+                        <div class="skill-category-card-header">
+                            <div class="icon"><i class="fas fa-code"></i></div>
+                            <h3>Languages & Analytics</h3>
                         </div>
-
-                        <div class="contact-card">
-                            <i class="uil uil-whatsapp contact-card-icon"></i>
-                            <h3 class="contact-card-title">Whatsapp</h3>
-                            <span class="contact-card-data">+44-7341480503</span>
-                            <span class="contact-button">Write me <i class="uil uil-arrow-right contact-button-icon"></i></span>
+                        <ul class="skill-list">
+                            <li><i class="fas fa-check-circle"></i> Python (Pandas, Seaborn)</li>
+                            <li><i class="fas fa-check-circle"></i> SQL</li>
+                            <li><i class="fas fa-check-circle"></i> R</li>
+                            <li><i class="fas fa-check-circle"></i> Tableau & Looker</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category-card">
+                        <div class="skill-category-card-header">
+                            <div class="icon"><i class="fas fa-database"></i></div>
+                            <h3>Data Engineering</h3>
                         </div>
-
-                        <div class="contact-card">
-                            <i class="uil uil-linkedin contact-card-icon"></i>
-                            <h3 class="contact-card-title">linkedin</h3>
-                            <span class="contact-card-data">prashastirakhya</span>
-                            <span class="contact-button">Write me <i class="uil uil-arrow-right contact-button-icon"></i></span>
+                         <ul class="skill-list">
+                            <li><i class="fas fa-check-circle"></i> ETL/ELT Pipelines</li>
+                            <li><i class="fas fa-check-circle"></i> Data Warehousing</li>
+                            <li><i class="fas fa-check-circle"></i> BigQuery, Redshift, Snowflake</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category-card">
+                        <div class="skill-category-card-header">
+                            <div class="icon"><i class="fas fa-brain"></i></div>
+                            <h3>ML & AI</h3>
                         </div>
+                         <ul class="skill-list">
+                            <li><i class="fas fa-check-circle"></i> Scikit-learn (Regression, Classification)</li>
+                            <li><i class="fas fa-check-circle"></i> LLM Integration</li>
+                            <li><i class="fas fa-check-circle"></i> Semantic Search (Pinecone)</li>
+                        </ul>
+                    </div>
+                    <div class="skill-category-card">
+                        <div class="skill-category-card-header">
+                            <div class="icon"><i class="fas fa-tools"></i></div>
+                            <h3>DevOps & Workflow</h3>
+                        </div>
+                         <ul class="skill-list">
+                            <li><i class="fas fa-check-circle"></i> Airflow</li>
+                            <li><i class="fas fa-check-circle"></i> Docker & Kubernetes</li>
+                            <li><i class="fas fa-check-circle"></i> Git, CI/CD (GitLab, Jenkins)</li>
+                            <li><i class="fas fa-check-circle"></i> Grafana & Prometheus</li>
+                        </ul>
                     </div>
                 </div>
-
-                <div class="contact-content">
-                    <form action="" class="contact-form">
-                        <div class="input-container">
-                            <input type="text" class="input">
-                            <label for="">Username</label>
-                            <span>Username</span>
-                        </div>
-    
-                        <div class="input-container">
-                            <input type="email" class="input">
-                            <label for="">Email</label>
-                            <span>Email</span>
-                        </div>
-    
-                        <div class="input-container">
-                            <input type="tel" class="input">
-                            <label for="">Phone</label>
-                            <span>Phone</span>
-                        </div>
-    
-                        <div class="input-container textarea">
-                            <textarea name="" id="" class="input"></textarea>
-                            <label for="">Message</label>
-                            <span>Message</span>
-                        </div>
-    
-                        <button type="submit" class="button"><i class="uil uil-navigator button-icon"></i>Send Message</button>
-                    </form>
+            </div>
+        </section>
+        
+        <!-- NEW Tech Stack Section -->
+        <section class="tech-stack">
+            <div class="container">
+                <h2 class="section-title">My Data Toolkit</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="icon"><i class="fas fa-database"></i></div>
+                        <h4>Databases & Warehouses</h4>
+                        <p>BigQuery, Redshift, Snowflake, PostgreSQL, MySQL</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fas fa-cogs"></i></div>
+                        <h4>Data Processing & ETL</h4>
+                        <p>Airflow, dbt, Pandas, Spark</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fas fa-chart-pie"></i></div>
+                        <h4>Visualization & BI</h4>
+                        <p>Tableau, Looker, Power BI, Seaborn, Matplotlib</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fas fa-robot"></i></div>
+                        <h4>ML & AI Frameworks</h4>
+                        <p>Scikit-learn, TensorFlow, PyTorch, Hugging Face</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fab fa-docker"></i></div>
+                        <h4>Cloud & DevOps</h4>
+                        <p>GCP, AWS, Docker, Kubernetes, GitLab CI/CD, Terraform</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="icon"><i class="fas fa-language"></i></div>
+                        <h4>Primary Languages</h4>
+                        <p>Python, SQL, R</p>
+                    </div>
                 </div>
             </div>
-
         </section>
 
-        <footer class="footer">
-            <div class="footer-bg">
-                <div class="footer-container container grid">
-                    <div>
-                        <h1 class="footer-title">Prashasti</h1>
-                        <span class="footer-subtitle">Data Specialist</span>
-                    </div>
-
-                    <ul class="footer-links">
-                        <li>
-                            <a href="#services" class="footer-links">Services</a>
-                        </li>
-                        <li>
-                            <a href="#work" class="footer-links"></a>
-                        </li>
-                        <li>
-                            <a href="#contact" class="footer-links">Contact</a>
-                        </li>
-                    </ul>
-
-                    <div class="footer-socials">
-                        <a href="https://github.com/prashastirakhya" target="_blank" class="footer-social">
-                            <i class="uil uil-github"></i>
-                        </a>
-
-
-                        <a href="https://www.linkedin.com/in/prashastirakhya/" target="_blank" class="footer-social">
-                            <i class="uil uil-linkedin"></i>
-                        </a>
-                    </div>
-                </div>
-
-                
-            </div>
-        </footer>
     </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mixitup/3.3.1/mixitup.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="main.js"></script>
+    <!-- Redesigned Footer / Contact Section -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <p>I'm currently open to new opportunities and collaborations. If you have a project in mind or just want to say hello, feel free to reach out!</p>
+            <div class="social-links">
+                <a href="mailto:prashastirakhya.work@email.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/prashasti-rakhya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/prashastirakhya" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+             <a href="RakhyaPrashasti-CV.pdf" class="btn" download>Download CV</a>
+             <div class="footer-bottom">
+                 <p>&copy; 2024 Prashasti Rakhya. All Rights Reserved.</p>
+             </div>
+        </div>
+    </footer>
+
+    <script>
+        // JavaScript for mobile navigation and animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.querySelector(".hamburger");
+            const navMenu = document.querySelector(".nav-menu");
+
+            // Toggle mobile menu
+            hamburger.addEventListener("click", () => {
+                hamburger.classList.toggle("active");
+                navMenu.classList.toggle("active");
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll(".nav-menu a").forEach(n => n.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navMenu.classList.remove("active");
+            }));
+
+            // Intersection Observer for scroll animations
+            const sections = document.querySelectorAll('section');
+            const options = {
+                root: null, // relative to the viewport
+                threshold: 0.1,
+                rootMargin: "0px"
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Stop observing the element once it's visible
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, options);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </body>
 </html>
